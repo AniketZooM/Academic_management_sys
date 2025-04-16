@@ -1,0 +1,171 @@
+{% extends 'student/dash_base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="header">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li><a href="#">Details</a></li>
+            </ul>
+        </div>
+        <a href="#" class="report">
+            <i class='bx bx-download'></i> 
+            <span>Download Your ID Card</span>
+        </a>
+    </div>
+
+    <div class="analyse">
+        <div class="sales">
+            <a href="{% url "student_dashb" 'mark' %}">
+                <div class="status">
+                    <div class="info">
+                        <h3>Specific Exam</h3>
+                        <h1>Results</h1> 
+                    </div>
+                    <div class="progresss">
+                        <img src="{% static "image/result.png" %}" alt="">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="sales">
+            <a href="xm_schedule">
+                <div class="status">
+                    <div class="info">
+                        <h3>All Scheduled</h3>
+                        <h1>Exams</h1>
+                    </div>
+                    <div class="progresss">
+                        <img src="{% static "image/book.png" %}" alt="">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="sales">
+            <a href="{% url "student_dashb" 'sheet' %}">
+                <div class="status">
+                    <div class="info">
+                        <h3>All Sheets+</h3>
+                        <h1>Notes</h1>
+                    </div>
+                    <div class="progresss">
+                        <img src="{% static "image/note.png" %}" alt="">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="sales">
+            <a href="">
+                <div class="status">
+                    <div class="info">
+                        <h3>Currently Active</h3>
+                        <h1>Quiz</h1>
+                    </div>
+                    <div class="progresss">
+                        <img src="{% static "image/quiz.png" %}" alt="">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="sales">
+            <a href="{% url "student_dashb" 'hw' %}">
+                <div class="status">
+                    <div class="info">
+                        <h3>Home</h3>
+                        <h1>Work</h1>
+                    </div>
+                    <div class="progresss">
+                        <img src="{% static "image/hw.png" %}" alt="">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="sales">
+            <a href="{% url "student_dashb" 'routine' %}">
+                <div class="status">
+                    <div class="info">
+                        <h3>All Subjects</h3>
+                        <h1>Routine</h1>
+                    </div>
+                    <div class="progresss">
+                        <img src="{% static "image/routine.png" %}" alt="">
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="bottom-data">
+        
+        <div class="orders">
+            <div class="header">
+                <i class='fa fa-receipt'></i>
+                <h3>All Your Notices</h3>
+                <i class='fa fa-filter'></i>
+                <i class='fa fa-search'></i>
+            </div>
+            {% if notice %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Notice</th>
+                        <th>Teacher</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for n in notice %}
+                    
+                    <tr>
+                        <td style="color:green;border-right: 1px dashed #FF0060;margin-right:5px;">{{n.notice}}</td>
+                        <td>{{n.teacher}}</td>
+                        
+
+                    </tr>
+        
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div style="color:red; display: flex;padding-top:35px; justify-content:center;">
+            <h3>No notices have been posted yet. Nothing to display.</h3>
+            </div>
+            {% endif %}
+
+        </div>        
+
+        <!-- Reminders -->
+        <div class="reminders">
+            <div class="header">
+                <i class='bx bx-note'></i> 
+                <h3>Reminders</h3>
+            </div> 
+            <ul class="task-list">
+                {% for N in reminders %}
+                <li class="not-completed">
+                    <div class="task-title">
+                        <i class='bx bx-x-circle'></i> 
+                        <p>
+                            {% for rem in N %}
+                            {{rem.title}}
+                            ( {{rem.last_day_of_submit}} )
+
+                            {% endfor %}
+
+                        </p>
+                    </div>
+                    <i class='bx bx-dots-vertical-rounded'></i> 
+                </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends 'student/dash_base.html' %}
+
+{% block content %}
+<div class="bottom-data">
+    <div class="orders">
+        <div class="header">
+            <i class='bx bx-receipt'></i>
+            <h3>Your Classes and Subjects</h3>
+            <i class='bx bx-filter'></i>
+            <i class='bx bx-search'></i>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Your Class</th>
+                    <th>Subject</th>
+                    <th>Teacher</th>
+                    <th>Teacher(Pic)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for queryset in routine %}
+                    {% for d in queryset %}
+                        <tr>
+                            <td>{{ d.class_name }}</td>
+                            <td>{{ d.subject }}</td>
+                            <td>{{ d.teacher }}</td>
+                            <td><img src="{{ d.teacher.profile_pic.url }}" alt="teacher profile pic"></td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

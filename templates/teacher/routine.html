@@ -1,0 +1,66 @@
+{% extends "teacher/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="bottom-data">
+    <div class="orders">
+        <div class="header">
+            <i class='bx bx-receipt'></i>
+            <h3>Schedule Routine</h3>
+            <i class='bx bx-filter'></i>
+            <i class='bx bx-search'></i>
+        </div>    
+        <table>
+            <thead>
+                <tr>
+                    <th>Shift</th>
+                    <th>Batch</th>
+                    <th>Class</th>
+                    <th>Subject</th>
+                    <th>Start</th>
+                    <th>End</th>
+
+                    
+                </tr>
+            </thead>
+            <tbody>
+
+                {% if routine %}
+                {% for r in routine %}
+                <tr>
+                    <td>
+                        {{r.batch.shift}}
+                    </td>
+                <td>
+                    {{r.batch.batch_name}}
+                </td> 
+                <td>
+                    {{r.class_name}}
+                </td>
+                <td>
+                    {{r.subject}}
+                </td>
+                <td>
+                    {{r.start_class}}
+                </td> 
+                <td>
+                    {{r.end_class}}
+                </td> 
+            </tr>
+            {% endfor %}
+                
+                
+                {% else %}
+                <tr>
+                    <td colspan="5"><h2>Sorry, you don't have any subjects/students</h2></td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+

@@ -1,0 +1,75 @@
+{% extends 'teacher/base.html' %}
+{% load static %}
+{% block content %}
+{% for m in messages %}
+    <div class="message-box">
+        {{ m }}
+        <span class="close-button" onclick="this.parentElement.style.display='none'"><i class='bx bxs-no-entry'></i></span>
+    </div>
+{% endfor %}
+
+<h1>Create a Quiz</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <h3>Enter the type of quiz you want to give (e.g. CT-01-Chapter-01)</h3>
+    <input type="text" class="input-field" name="heading">
+    <h3>Select the subject </h3>
+    <select class="input-field" name="subject">
+        <option value="">----------</option>
+        {% for sub in subject %}
+        <option value="{{ sub.id }}">{{ sub }}</option>
+        {% endfor %}
+    </select>
+    <h3>Select the class for which you will take the quiz</h3>
+    <select class="input-field" name="classes">
+        <option value="">----------</option>
+        {% for cls in classes %}
+        <option value="{{ cls.id }}">{{ cls }}</option>
+        {% endfor %}
+    </select>
+    
+    <h3>How long will the quiz last (minutes)</h3>
+    <input type="text" class="input-field " name="duration">
+
+    <h3>Start date and time for the quiz</h3>
+    <input type="datetime-local" class="input-field" name="start_from">
+    
+    <button class="edit-button" type="submit">Create The Quiz</button>
+</form>
+
+ <div class="bottom-data">
+    <div class="orders">
+        <div class="header">
+            <i class='bx bx-receipt'></i>
+            <h3>Exams or quizzes that you have created or will give</h3>
+            <i class='bx bx-filter'></i>
+            <i class='bx bx-search'></i>
+        </div> 
+    <table>
+        <tbody>
+            {% if quizes %}
+            {% for q in quizes %}
+            <th></th>
+                <tr>
+                    <td>
+                        <a href="{% url "make_question" q.uid %}">
+                            {{q.name}} <span>( {{q.class_name}} , {{q.subject}} )</span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            
+            {% else %}
+            <tr>
+                <td colspan="5"><h2>You haven't created any quizzes for any subject yet </h2></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+{% endblock content %}

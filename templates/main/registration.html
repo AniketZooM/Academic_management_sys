@@ -1,0 +1,46 @@
+{% extends 'init/base.html' %}
+{% load static %}
+
+{% block title %} Register{% endblock title %}
+{% block content %}
+
+
+<section class="contact" id="contact">
+
+        <div class="heading">
+            
+            <h3>Create {{role|title}} Account</h3> 
+            <br> 
+            <h2>Or login <a href=""> here</a> if you already have an account</h3>
+        </div>
+    
+        <div class="row">
+
+            <form class="form" id="a-form" action="" method="POST" novalidate>
+                {% csrf_token %}
+                <div class="inputBox" style="margin-bottom: 0px;">
+                    {% for field in form %}
+                    {{ field }}
+                    
+                    {% if field.errors %}
+                    <p style="color: red; font-size: 14px;">{{ field.errors.as_text }}</p>
+                    {% endif %}
+                    
+                    {% endfor %}
+                  
+                </div>
+
+                {% if form.non_field_errors %}
+                
+                    {% for error in form.non_field_errors %}
+                    <p style="color: red;">{{ error }}</p>
+                    {% endfor %}
+                
+            {% endif %}
+                
+                <input type="submit" value="Register and proceed to the next step" class="btn">
+            </form>
+        </div>
+    
+</section>
+{% endblock content %}

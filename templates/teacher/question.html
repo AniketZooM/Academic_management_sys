@@ -1,0 +1,121 @@
+{% extends 'teacher/base.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content %}
+<style>
+  
+  .checkbox-label {
+    position: relative;
+    padding-left: 20px; 
+    margin-bottom: 10px;
+    margin-top: 19px; 
+    cursor: pointer;
+    user-select: none;
+    font-size: 15px;
+  }
+
+  .inputs-ans {
+    width: 50%;
+    padding: 0.7rem;
+    border: 1px dashed rgb(4, 124, 0);
+    border-radius: 0px;
+    font-size: 1rem;
+    color: var(--color-dark-variant);
+  }
+
+  .inputs {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px dashed rgb(4, 124, 0);
+    border-radius: 0px;
+    font-size: 1rem;
+    color: var(--color-dark-variant);
+  }
+</style>
+
+{% for m in messages %}
+    <div class="message-box">
+        {{ m }}
+        <span class="close-button" onclick="this.parentElement.style.display='none'"><i class='bx bxs-no-entry'></i></span>
+    </div>
+{% endfor %}
+
+<h1>Create Quiz Questions</h1>
+
+<div class="bottom-data">
+  <div class="orders">
+    <form method="post">
+      {% csrf_token %}
+      <h3>Question </h3>
+      <input class="inputs" type="text" name="question" required><br>
+      <h3>Mark for this question </h3>
+      <input class="inputs" type="text" name="mark_ques" required><br>
+      <h3>How many options do you want for this question</h3>
+      <input class="inputs" type="text" name="no_option" placeholder="Default is 4 (do not change unless necessary)" ><br>
+      <h2>Add correct answer and other options for this question</h2>
+      {% for i in loop|custom_range %}
+      <input class="inputs-ans" type="text" name="answer_{{ i }}" placeholder="Option - {{ i }}">
+      <span class="checkbox-label">
+          <input class="checkbox-label" type="checkbox" name="correct_answer" value="{{ i }}"> This is correct
+      </span>
+      <br>
+      {% endfor %}
+  
+      
+      <button class="edit-button" type="submit">Upload </button>
+    </form>
+  </div>
+</div>
+
+<div class="bottom-data">
+  <div class="orders">
+    <div class="header">
+        <h3>Questions you have added to this quiz</h3>
+      </div> 
+
+      <table>
+        <thead>
+            <tr>
+                <th>Question</th>
+                
+                <th>Delete</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+
+          {% if my_question %}
+          {% for qes in my_question %}
+            <tr>
+            <td>
+              <a href="#">
+                {{qes.ques_name}}  
+              </a>
+            </td>
+
+            <td>
+              <form method="post" action="{% url 'delete_question' qes.uid %}">
+                {% csrf_token %}
+                <button type="submit" style="background: red;padding: 5px 5px 5px 5px; margin:0px 0px 0px 0px;" class="edit-button">Cancel</button>
+              </form>
+            </td>
+            
+        </tr>
+        {% endfor %}
+            
+            
+            {% else %}
+            <tr>
+              <td><h2>You haven't added any questions yet </h2></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+     
+</div>
+</div>
+
+<br>
+
+
+{% endblock %}

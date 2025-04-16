@@ -1,0 +1,60 @@
+{% load static %}
+
+
+<!-- reviews section starts  -->
+
+<section class="reviews" id="reviews">
+
+    <div class="heading">
+        <span>Parents' Opinions</span>
+        <h3>What do they say about us?</h3>
+    </div> 
+
+    <div class="box-container">
+
+        {% comment %} dynamic {% endcomment %}
+
+        <div class="box">
+            <img src="{% static "image/001.jpg" %}" alt="">
+            <h3>Ashik</h3>
+            <p>Reviews can be given dynamically. Website and management work is complete.</p>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="{% static "image/none.gif" %}" alt="">
+            <h3>UNKNOWN</h3>
+            <p>Their service is really good.</p>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="{% static "image/pic-3.jpg" %}" alt="">
+            <h3>Kader</h3>
+            <p>Get well soon Masud...</p>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- reviews section ends -->

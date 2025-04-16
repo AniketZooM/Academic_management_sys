@@ -1,0 +1,90 @@
+{% extends 'teacher/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Provide notes for chapters and classes you want</h1>
+{% for m in messages %}
+    <div class="message-box">
+        {{ m }}
+        <span class="close-button" onclick="this.parentElement.style.display='none'"><i class='bx bxs-no-entry'></i></span>
+    </div>
+{% endfor %}
+
+
+<div class="bottom-data">
+    <div class="orders">
+        <form action="" method = "POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.media}}
+            {{form}}
+            
+            <button type="submit" id="quiz-create-button" class="edit-button">Upload Note</button>
+        </form>
+    </div>
+</div>
+        
+<h1>
+Notes you've provided so far for subjects
+</h1>
+
+<div class="bottom-data">
+    <div class="orders">
+        <div class="header">
+            <i class='bx bx-receipt'></i>
+            <h3>Subjects You Teach</h3>
+            <i class='bx bx-filter'></i>
+            <i class='bx bx-search'></i>
+        </div> 
+    <table>
+        <thead>
+            <tr>
+                <th>Shift</th>
+                <th>Class</th>
+                <th>Subject</th>
+                <th>Note</th>
+                <th>Change</th>
+                
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if subs %}
+            {% for s in subs %}
+            <tr>
+            <td>
+                {{s.batch.shift}}
+            </td>
+            
+            <td>
+                {{s.for_class}}
+            </td>
+            <td>
+                {{s.subject}}
+            </td>
+            <td>
+                {{s.title}}
+            </td>
+            <td>
+                <form action="{% url 'delete_hw' s.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="edit-button">DELETE</button>
+                </form>
+            </td>
+            
+        </tr>
+        {% endfor %}
+            
+            
+            {% else %}
+            <tr>
+                <td colspan="5"><h2>No notes have been provided for any of your subjects</h2></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+{% endblock content %}

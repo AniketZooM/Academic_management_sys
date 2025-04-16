@@ -1,0 +1,181 @@
+{% extends 'teacher/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .time-since {
+      font-size: 12px; 
+      color: #333; 
+      vertical-align: middle; 
+    }
+</style>
+
+  
+<h1>Your Dashboard</h1>
+
+{% for m in messages %}
+    <div class="message-box">
+        {{ m }}
+        <span class="close-button" onclick="this.parentElement.style.display='none'"><i class='bx bxs-no-entry'></i></span>
+    </div>
+{% endfor %}
+
+
+<div class="analyse">
+
+    <div class="sales">
+        <a href="{% url "teacher_dashb" 'your_subject' %}">
+            <div class="status">
+                <div class="info">
+                    <h3>Subjects You Teach</h3>
+                    <h1>Subject</h1>
+                </div>
+                <div class="progresss">
+                    <img src="{% static "image/book.png" %}" alt="">
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="sales">
+        <a href="{% url "teacher_dashb" 'quiz' %}">
+            <div class="status">
+                <div class="info">
+                    <h3>Take Quiz Now</h3>
+                    <h1>Quiz</h1>
+                </div>
+                <div class="progresss">
+                    <img src="{% static "image/quiz.png" %}" alt="">
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="sales">
+        <a href="{% url "teacher_dashb" 'note' %}" >
+            <div class="status">
+                <div class="info">
+                    <h3>All Sheets+</h3>
+                    <h1>Notes</h1>
+                </div>
+                <div class="progresss">
+                    <img src="{% static "image/note.png" %}" alt="">
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <div class="sales">
+        <a href="{% url "teacher_dashb" 'hw' %}">
+            <div class="status">
+                <div class="info">
+                    <h3>Assign Homework</h3>
+                    <h1>Work</h1>
+                </div>
+                <div class="progresss">
+                    <img src="{% static "image/hw.png" %}" alt="">
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="sales">
+        <a href="{% url "teacher_dashb" 'routine' %}">
+            <div class="status">
+                <div class="info">
+                    <h3>Class Schedule</h3>
+                    <h1>Routine</h1>
+                </div>
+                <div class="progresss">
+                    <img src="{% static "image/routine.png" %}" alt="">
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+
+</div>
+<!-- End of Analyses -->
+
+<!-- New Users Section -->
+<div class="new-users">
+    <h2>New Students in Your Batch</h2>
+    <div class="user-list">
+
+        {% for usr in newuser %}
+        
+        <div class="user">
+            <img src="{{usr.profile_pic.url}}">
+            <h2>{{usr.s_name}}</h2>
+            {% if usr.user.is_active_now %}
+            <i class="fas fa-circle text-success"></i> Active Now
+            {% else %}
+                {% if usr.user.last_login %}
+                <p>
+                    <i style="font-size: 15px; color: red; vertical-align: middle; margin-right: 2px; " class='bx bx-time-five bx-spin' ></i></i>
+                    <span class="time-since">{{ usr.user.last_login|timesince }} ago</span>
+                </p>
+                {% else %}
+                <p>Never logged in</p>
+                {% endif %}
+            {% endif %}
+
+        </div>
+  
+        {% endfor %}
+
+        <div class="user" >
+            <a href="{% url "teacher_dashb" 'your_student' %}" style="display: flex; flex-direction: column; align-items: center;">
+                <i class='bx bx-plus-medical'></i>
+                <p>show more</p>
+            </a>
+        </div>
+        
+
+    </div>
+</div>
+<!-- End of New Users Section -->
+
+{% endblock content %}
+
+{% block reminder %}
+
+<div class="reminders">
+    <div class="header">
+        <h2>Reminders</h2>
+        <span style="font-size: 20px;">
+            {% if reminders %}
+            <i class='bx bxs-bell-ring bx-tada'></i>
+            {% else %}
+            <i class='bx bxs-bell'></i>
+            {% endif %}
+        </span>
+    </div>
+
+
+    {% for c in reminders %}
+    <div class="notification">
+        <div class="icon">
+            <span >
+                <i class='bx bxs-volume-full'></i>
+            </span>
+        </div>
+        <div class="content">
+            <div class="info">
+                <a href="{% url "teacher_dashb" 'routine' %}"><h3>Class for {{c.class_name}} in {{c.batch.batch_name}} batch</h3></a>
+                <small class="text_muted">
+                    {{ c.start_class }} - {{ c.end_class }}
+                </small>
+            </div>
+            <span >
+                <i class='bx bxs-pencil'></i>
+            </span>
+        </div>
+    </div>
+    
+    {% comment %} {% endfor %} {% endcomment %}
+{% endfor %}
+
+
+{% endblock reminder %}

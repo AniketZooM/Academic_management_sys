@@ -1,0 +1,113 @@
+{% extends 'teacher/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    
+
+
+    .the_box_uv {
+        background-color: #f0f0f0; 
+        padding: 10px;
+        border: 1px solid #ccc; 
+        border-radius: 5px; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .material-icons-sharp {
+        font-size: 20px; 
+        float:left;
+        margin-right: 0px;
+    }
+    
+    
+    .sign {
+        background-color: #ff5733;
+        color: #fff;
+        padding: 5px 10px; 
+        border-radius: 5px; 
+        font-weight: bold;
+    }
+    
+    
+    .the_box_v{
+        background-color: rgba(15, 122, 255, 0.09);
+        padding: 10px;
+        border: 1px solid #ccc; 
+        border-radius: 5px; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .viewed{
+        padding: 5px 10px; 
+    }
+    
+    </style>
+    
+
+
+<div class="bottom-data">
+    <div class="orders">
+        <div class="header">
+            <i class='bx bx-box'></i>
+            <h3>All Messages For You</h3>
+            
+            <i class='bx bx-search'></i>
+        </div> 
+
+    {% for m in all_message %}
+    {% if m.visited == False %}
+    
+
+    <div>
+        <a  href="{% url "seen_message" m.id %}">
+            <div class="the_box_uv">
+            
+                <span class="material-icons-sharp">
+                    <i class='bx bxs-message-alt-dots bx-tada'></i>
+                </span>
+                
+                {{m.headline}}
+                <span class="sign">NEW</span>
+            </div>
+        </a>
+
+    </div>
+ 
+
+
+ 
+    {% else %}
+
+    <div>
+        <a href="{% url "seen_message" m.id %}" >
+            <div class="the_box_v">
+                <span class="material-icons-sharp">
+                    <i class='bx bxs-inbox'></i>
+                </span>
+
+                {{m.headline}}
+                <span class="viewed">
+                    <i class='bx bx-check-double'></i>
+                </span>
+                
+            </div>
+        </a>
+    </div>
+
+    {% endif %}
+    
+    {% endfor %}
+
+
+
+</div>
+</div>
+
+
+{% endblock content %}

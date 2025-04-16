@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="{% static "css/tdash.css" %}">
+    <title>Teacher | dashboard</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar Section -->
+        <aside>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="{% static "image/coaching.png" %}">
+                    <h2>CS<span class="danger">Dash</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span >
+                        close
+                    </span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+
+
+               {% url 'teacher_dashb' page='home' as home %}  
+               {% url 'teacher_dashb' page='add_mark' as add_mark %}  
+               {% url 'teacher_dashb' page='msg' as msg %}  
+               {% url 'teacher_dashb' page='apply_leave' as apply_leave %}  
+               {% url 'teacher_dashb' page='all_setting' as all_setting %}  
+               {% url 'teacher_dashb' page='hw' as hw %}  
+               {% url 'teacher_dashb' page='your_student' as your_student %}  
+               {% url 'teacher_dashb' page='wallet' as wallet %}  
+               {% url 'teacher_dashb' page='notice' as notice %}  
+                                 
+
+               <a {% if request.path == home %}class="active"{% endif %} href="{% url 'teacher_dashb' page='home' %}">
+                   <span >
+                    <i class='bx bxs-dashboard' ></i>
+                   </span>
+                   <h3>Dashboard</h3>
+               </a> 
+        
+               <a {% if request.path == add_mark %}class="active"{% endif %} href="{% url 'teacher_dashb' page='add_mark' %}">
+                   <span >
+                    <i class='bx bxs-add-to-queue'></i>
+                   </span>
+                   <h3>Provide Marks</h3>
+               </a>
+    
+               <a {% if request.path == your_student %}class="active"{% endif %} href="{% url "teacher_dashb" page='your_student' %}">
+                    <span >
+                        <i class='bx bxs-user-detail'></i>
+                    </span>
+                    <h3>Students</h3>
+
+                </a>
+
+           
+               <a {% if request.path == msg %}class="active"{% endif %} href="{% url 'teacher_dashb' page='msg' %}">
+                   <span >
+                    {% if unviewed_msg == 0 %}
+                    <i class='bx bxs-envelope' ></i>
+                    {% else %}
+                    <i class='bx bxs-envelope bx-tada' ></i>
+
+                    {% endif %}
+                   </span>
+                   <h3>Messages</h3>
+                   <span class="message-count">{{unviewed_msg}}</span>
+               </a>
+               
+               <a {% if request.path == apply_leave %}class="active"{% endif %} href="{% url 'teacher_dashb' page='apply_leave' %}">
+                   <span >
+                    <i class='bx bxs-receipt'></i>
+                   </span>
+                   <h3>Leave Application</h3>
+               </a>
+               <a {% if request.path == all_setting %}class="active"{% endif %} href="{% url 'teacher_dashb' page='all_setting' %}">
+                   <span >
+                       <i class='bx bxs-cog bx-spin'  ></i>
+                   </span>
+                   <h3>Settings</h3>
+               </a>
+               <a {% if request.path == wallet %}class="active"{% endif %} href="{% url 'teacher_dashb' page='wallet' %}">
+                <span >
+                    <i class='bx bxs-wallet'  ></i>
+                </span>
+                   <h3>Wallet</h3>
+               </a>
+               <a {% if request.path == notice %}class="active"{% endif %} href="{% url 'teacher_dashb' page='notice' %}">
+                   <span >
+                    <i class='bx bxs-notification'></i>
+                   </span>
+                   <h3>Send Notice</h3>
+               </a>
+               <a {% if request.path == hw %}class="active"{% endif %} href="{% url 'teacher_dashb' page='hw' %}">
+                   <span >
+                    <i class='bx bxs-message-square-add'></i>
+                   </span>
+                   <h3>Assign Homework</h3>
+               </a>
+               <a href="{% url "logout" %}">
+                   <span >
+                    <i class='bx bx-log-out-circle'  ></i>
+                   </span>
+                   <h3>Logout</h3>
+               </a>
+           </div>
+        </aside>
+        <!-- End of Sidebar Section -->
+
+        <!-- Main Content -->
+        <main>
+            {% block content %}{% endblock content %}
+
+        </main>
+        <!-- End of Main Content -->
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span >
+                        <i class='bx bx-menu'></i>
+                    </span>
+                </button>
+                <div class="dark-mode">
+                    <span class="material-icons-sharp active">
+                        <i class='bx bx-bulb' style='color:yellow' ></i>
+                    </span>
+                    <span >
+                        <i class='bx bx-moon' style='color:black' ></i>
+                    </span>
+                </div>
+                
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey, <b>{{request.user.teacher.t_name}}</b></p>
+                        <small class="text-muted">Teacher</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="{{request.user.teacher.profile_pic.url}}">
+                    </div>
+                </div> 
+                
+            </div>
+            <!-- End of Nav -->
+
+            <div class="user-profile">
+                <div class="logo">
+                    <img src="{% static "image/coaching.png" %}">
+                    <h2>Our Coaching</h2>
+                    <p>Committed to Success</p>
+                </div>
+            </div>
+            {% block reminder %}{% endblock reminder %}
+        </div>
+
+
+    </div>
+
+    {% comment %} <script src="{% static "js/orders.js" %}"></script> {% endcomment %}
+    <script src="{% static "js/index.js" %}"></script>
+</body>
+
+</html>

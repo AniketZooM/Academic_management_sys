@@ -1,0 +1,39 @@
+{% extends 'init/base.html' %}
+{% load static %}
+
+{% block title %}Others info fill{% endblock title %}
+{% block content %}
+
+<section class="blogs" id="blogs">
+    <div class="heading">
+        <span>Final Step</span>
+        <h3>Information at a Glance and Subject Selection</h3>
+    </div>
+
+    <div class="box-container">
+        
+        <div class="box">
+            <img src={{user.student.profile_pic.url}} alt="">
+            <a href="#" class="title">{{user.student.s_name}}</a>
+            <p class="blog-description">Name: {{ user.student.s_name }} | ID: {{ user.student.s_id }} | Guardian's Mobile: {{ user.student.guardian_phone }}</p>
+            <p class="blog-description"></p>
+            
+        </div> 
+        
+
+            <form class="box" id="a-form" action="" method="POST" novalidate>
+                {% csrf_token %}
+
+                <select class="select-dropdown" name="selected_subjects" multiple>
+                    {% for subject in user.student.class_subjects.subjects.all %}
+                        <option value="{{ subject.name }}">{{ subject.name }}</option>
+                    {% endfor %}
+                </select>
+        
+                <p class="error-message">Make sure the information you provided is correct and select the subjects you want to study. There is no way to return to this page. If you have made a mistake, please call the admin, who will correct it. Error information can be verified through a WhatsApp message.</p>
+                    <button class="submit-button" type="submit">Confirm Information and Complete Enrollment</button>
+                     
+            </form>    
+</section>
+
+{% endblock content %}

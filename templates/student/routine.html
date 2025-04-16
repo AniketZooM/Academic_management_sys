@@ -1,0 +1,41 @@
+{% extends 'student/dash_base.html' %}
+
+{% block content %}
+<div class="bottom-data">
+    <div class="orders">
+        <div class="header">
+            <i class='bx bx-receipt'></i>
+            <h3>Your Class Routine</h3>
+            <i class='bx bx-filter'></i>
+            <i class='bx bx-search'></i>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Your Batch </th>
+                    <th>Subject</th>
+                    <th>Teacher</th>
+                    <th>Class Start</th>
+                    <th>Class End</th>
+                    <th>Shift</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for queryset in routine %}
+                    {% for d in queryset %}
+                        <tr>
+                            <td>{{ d.batch.batch_name }}</td>
+                            <td>{{ d.subject }}</td>
+                            <td>{{ d.teacher }}</td>
+                            <td>{{ d.start_class }}</td>
+                            <td>{{ d.end_class }}</td>
+                            <td>{{ d.batch.shift }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

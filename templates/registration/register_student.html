@@ -1,0 +1,49 @@
+{% extends 'init/base.html' %}
+{% load static %}
+{% block title %}Fill Other Information{% endblock title %}
+{% block content %}
+<section class="contact" id="contact">
+        <div class="heading">
+            <h3>Provide Additional Information</h3> 
+            <br> 
+        </div>
+        <div class="row">
+
+            <form class="form" id="a-form" action="" method="POST" novalidate>
+                {% csrf_token %}
+                <div class="inputBox" style="margin-bottom: 0px;">
+                    {% for field in form %}
+                    {% if field.name != 'class_subjects' and field.name != 'shift' %}
+                        {{ field }}
+                    {% endif %}
+
+                    <div class="iBox">
+
+                        {% if field.errors %}
+                        <p>{{ field.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    {% endfor %}
+                  
+                </div>
+                <h2 style="color:darkred;">Determine the class you will be admitted to. *</h2>
+                <div class="inputBox" style="margin-bottom: 0px;">
+                    {{ form.class_subjects }}
+                </div>
+                <h2 style="color:darkred;">Determine the shift you will be admitted to. *</h2>
+
+                <div class="inputBox" style="margin-bottom: 0px;">
+                    {{ form.shift }}
+                </div>
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <p style="color: red;">{{ error }}</p>
+                    {% endfor %}
+            {% endif %}
+                <input type="submit" value="Proceed to the Next Step" class="btn">
+            </form>
+        </div>
+</section>
+{% endblock content %}

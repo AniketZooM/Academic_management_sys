@@ -1,0 +1,30 @@
+<section class="category" id="dashboard">
+
+    <div class="heading">
+        <span>Congratulations</span>
+        <h3>Message for You</h3>
+    </div>
+
+    <div class="box-container">
+
+        
+
+            <div class="box">
+                <h3>
+                    Your account is being processed. Hold on till you get approval.
+                    <br>
+                    Your account is in the review stage. {% if user.role == "student" %}If you are a student, your account will be activated after verifying your guardian's phone number. {% endif %}Your account will be activated after verification. You will receive a notification after approval of your account. After receiving the notification, you can log in to your profile.
+                </h3>
+
+            </div>
+            
+        </div>
+        
+        {% if user.role == "student" %}
+        <p style="font-size: 2rem;color: #4da314;">Name: {{ student_profile.s_name }}</p>
+        <p style="font-size: 2rem;color: #4da314;">ID: {{ student_profile.s_id }}</p>
+        <p style="font-size: 2rem;color: #4da314;">Guardian's Mobile: {{ student_profile.guardian_phone }}</p>
+        <p style="font-size: 2rem;color: red;">If any information is incorrect or needs to be corrected, please contact the admin.</p>
+        {% endif %}
+
+</section>

@@ -1,0 +1,40 @@
+{% extends "student/dash_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="bottom-data">
+    <div class="orders">
+        <div class="header">
+            <i class='bx bx-receipt'></i>
+            <h3>Your Subject-wise Homework</h3>
+            <i class='bx bx-filter'></i>
+            <i class='bx bx-search'></i>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Your Homework</th>
+                    <th>Subject</th>
+                    <th>Teacher</th>
+                    <th>Submission Deadline</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for queryset in hw %}
+                    {% for m in queryset %}
+                        <tr>
+                            <td><a href="{% url "view_hw" m.id %}">{{ m.title }} </a></td>
+                            <td>{{ m.subject }}</td>
+                            <td>{{ m.teacher }}</td>
+                            <td>{{ m.last_day_of_submit }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}

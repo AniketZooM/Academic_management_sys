@@ -1,0 +1,49 @@
+{% extends 'teacher/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="bottom-data">
+  <div class="orders">
+      <div class="header">
+          <i class='bx bx-receipt'></i>
+          <h3>Update Your Profile Information</h3>
+          <i class='bx bx-filter'></i>
+          <i class='bx bx-search'></i>
+      </div> 
+  {% for m in messages %}
+  <div class="message-box">
+      {{ m }}
+      <span class="close-button" onclick="this.parentElement.style.display='none'">close</span>
+  </div>
+  {% endfor %}
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    {% for f in form %}
+    
+    {{f.label_tag}}
+    {{f}}
+    
+    {% endfor %}
+
+
+    <button type="submit" class="edit-button">Save Changes</button>
+    
+  </form>
+  <br>
+  {% comment %} <img src="{{ request.user.teacher.profile_pic.url }}" alt="profile"> {% endcomment %}
+  <div style="display:flex; justify-content:center; padding: 0px auto;">
+    
+    <a style="color: red;font-size:18px;" href="{% url 'change_password' %}">
+      <i class='bx bx-lock-open-alt'></i> Click here to change your password
+    </a>
+  </div>
+  
+
+
+</div>
+</div>
+{% endblock content %}

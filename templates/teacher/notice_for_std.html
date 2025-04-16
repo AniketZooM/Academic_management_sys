@@ -1,0 +1,94 @@
+{% extends 'teacher/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Provide notes for chapters and classes you want</h1>
+
+{% for message in messages %}
+    <div class="message-box">
+        {{ message }}
+        <span class="close-button" onclick="this.parentElement.style.display='none'">
+            <i class='bx bxs-no-entry'></i>
+        </span>
+    </div>
+{% endfor %}
+
+<div class="bottom-data">
+    <div class="orders">
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <label for="the_student">Who will receive the notice</label>
+        <select name="the_student" class="input-field">
+            <option value="">Select student</option>
+            {% for std in mystudent %}
+                <option value="{{ std.id }}">{{ std.s_name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="notice">Write Notice</label>
+        <input type="text" name="notice" class="input-field"></input>
+
+        <label for="notice_last_for">Notice Duration (e.g., No class tomorrow. Enter the date until which this notice applies)</label>
+        <input type="date" name="notice_last_for" class="input-field">
+
+        <button type="submit" id="notice-send-button" class="edit-button">Send Notice</button>
+    </form>
+
+    </div>
+</div>
+
+<div class="bottom-data">
+    <div class="orders">
+        <div class="header">
+            <i class='bx bx-receipt'></i>
+            <h3>Notices you have given so far</h3>
+            <i class='bx bx-filter'></i>
+            <i class='bx bx-search'></i>
+        </div> 
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Notice</th>
+                <th>Delete</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if notices %}
+            
+            {% for N in notices %}
+            <tr>
+            <td>
+                {{N.student}}
+            </td>
+            
+            <td>
+                {{N.notice}}
+            </td>
+            
+            <td>
+                <form action="{% url "delete_notice" N.uid %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="edit-button">DELETE</button>
+                </form>
+            </td>
+            
+        </tr>
+        {% endfor %}
+            
+            
+            {% else %}
+            <tr>
+                <td colspan="5"><h2>No notes have been provided for any of your subjects</h2></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+{% endblock content %}

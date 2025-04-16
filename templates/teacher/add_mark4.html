@@ -1,0 +1,76 @@
+{% extends 'teacher/base.html' %}
+{% load static %}
+{% block content %}
+
+{% for m in messages %}
+    <div class="message-box">
+        {{ m }}
+        <span class="close-button" onclick="this.parentElement.style.display='none'">close</span>
+    </div>
+{% endfor %}
+
+<hr>
+
+<h3 style = "color:red;">WARNING: After giving marks to a student, do not erase and save. If you want to erase the marks of that student for that subject, write 0 (zero) and save.</h3>
+
+<div class="bottom-data">
+    <div class="orders"> 
+        <div class="header">
+            <i class='bx bx-receipt'></i>
+            <h3>Provide Marks</h3>
+            <i class='bx bx-filter'></i>
+            <i class='bx bx-search'></i>
+        </div> 
+        
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Guardian's Number</th>
+                <th>Mark</th>
+                <th>Grade</th>
+                <th>Save Data</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            
+            {% for s in students %}
+            <tr>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="sid" value="{{ s.s_id }}">
+                    <input type="hidden" name="s_name" value="{{ s.s_name }}">
+                    <td>{{ s.s_id }}</td>
+                    <td>{{ s.s_name }}</td>
+                    <td>{{ s.guardian_phone }}</td>
+                    <td>
+                        {% for key, value in mark_dict.items %}
+
+                        {% if key == s.s_id %}
+                        <input type="number" name="marks" value="{{ value.0 }}" placeholder="None">
+                    </td>
+                    <td>{{ value.1 }}</td>
+
+                    {% endif %}
+                    {% endfor %}                       
+                    
+                    <td>
+                        <button style="margin-top : 0px;" class="edit-button" type="submit">SAVE</button>
+                    </td>
+                </form>
+            </tr>
+            {% empty %}
+            
+            <tr>
+                <td colspan="5"><h2>Sorry, you don't have any students for this subject</h2></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</div> 
+
+{% endblock content %}

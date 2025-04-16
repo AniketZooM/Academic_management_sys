@@ -1,0 +1,30 @@
+{% extends "student/dash_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Homework For You </h1>
+<br>
+<div class="my_msg">
+    {% for work in note %}
+    
+    <div>
+        <div class="the_box_uv">
+        
+            <span class="material-icons-sharp">
+                
+                <i class='bx bxs-inbox'></i>
+            </span>
+            {% for w in work %}
+            {{w.title}}
+            
+            <span class="sign"> <a href="{% url "downloadfile" "NoteAndSheet" w.id %}">Download</a></span>
+            {% endfor %}
+        </div>
+    </div>
+ 
+    {% endfor %}
+
+</div>
+
+{% endblock content %}

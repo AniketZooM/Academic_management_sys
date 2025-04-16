@@ -1,0 +1,37 @@
+{% extends 'init/base.html' %}
+{% load static %}
+
+{% block title %} Select role{% endblock title %}
+{% block content %}
+
+
+<section class="blogs" id="blogs">
+    <div class="heading">
+        <h3>Determine Your Position</h3>
+    </div>
+    <h2 style="color : red;">
+        <p>
+            Warning: If you select the wrong role, do not fill out the information in the next steps. Contact the admin who can fix it.
+        </p>
+        <p>
+            Warning Message:
+            If you accidentally select the wrong role (your category) and register with your Email/Phone No in the next step,
+            do not complete the final form. Contact the admin for a resolution before proceeding.
+        </p>
+    </h2>
+    <div class="box-container">
+        <form method="post" action="">
+            {% csrf_token %}
+            <select id="role-select" class="btn" name="role">
+                <option value="" disabled selected>Select Role</option>
+                <option value="teacher">Teacher</option>
+                <option value="student">Student</option>
+                <option value="guardian">Guardian</option>
+            </select>
+            <button type="submit" class="btn">Next Step</button>
+        </form>
+        
+    </div>
+    
+</section>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'student/dash_base.html' %}
+
+{% block content %}
+
+<h1>Your Exam Schedules </h1>
+<br>
+<div class="my_msg">
+    {% for work in schedule %}
+    
+    <div>
+        <div class="the_box_uv">
+            
+            <span class="material-icons-sharp">
+                
+                <i class='bx bxs-inbox'></i>
+            </span>
+            
+            {{work}}
+            
+            <span class="sign"> <a href="{% url "downloadfile" "ExamSchedule" work.id %}">Download</a></span>
+            
+        </div>
+    </div>
+    
+    {% endfor %}
+    
+</div>
+
+{% endblock content %}
